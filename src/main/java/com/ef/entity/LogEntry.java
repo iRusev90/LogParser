@@ -1,4 +1,4 @@
-package com.ef;
+package com.ef.entity;
 
 public class LogEntry {
 
