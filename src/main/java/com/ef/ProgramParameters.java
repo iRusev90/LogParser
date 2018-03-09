@@ -26,7 +26,7 @@ public class ProgramParameters {
 			Matcher argMatcher = argPattern.matcher(argument);
 			if (!argMatcher.matches()) {
 				throw new InvalidParserParamterException(
-						String.format("Expected string in fromat \"%s\" but was \"s%\"", ARGUMENT_REGEX, argument));
+						String.format("Expected string in format \"%s\" but was \"s%\"", ARGUMENT_REGEX, argument));
 			}
 
 			String parameterName = argMatcher.group(1);
