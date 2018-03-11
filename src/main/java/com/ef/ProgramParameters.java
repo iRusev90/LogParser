@@ -55,6 +55,10 @@ public class ProgramParameters {
 
 		}
 	}
+	
+	public String getDuration() {
+		return this.duration;
+	}
 
 	public List<String> getPathsToAccessLogs() {
 		return this.pathsToAccessLogs;
@@ -62,27 +66,6 @@ public class ProgramParameters {
 
 	public LocalDateTime getStartDate() {
 		return startDate;
-	}
-
-	public LocalDateTime getEndDate() {
-		if (this.startDate == null) {
-			return null;
-		}
-		LocalDateTime endDate = null;
-		
-		switch (this.duration) {
-			case "hourly":
-				endDate = this.startDate.plusHours(1);
-				break;
-			case "daily":
-				endDate = this.startDate.plusDays(1);
-				break;
-			default:
-				// LOG or throw
-				break;
-		}
-
-		return endDate;
 	}
 
 	public Integer getThreshhold() {

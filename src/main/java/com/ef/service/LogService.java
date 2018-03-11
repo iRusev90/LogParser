@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ef.db.GenericGateway;
+import com.ef.entity.BanEntry;
 import com.ef.entity.Log;
 import com.ef.finder.LogFinder;
 
@@ -71,9 +72,42 @@ public class LogService {
 		return log;
 	}
 
-	public void banAndShowIps(LocalDateTime startDate, LocalDateTime endDate, Integer threshhold) {
-		// TODO Auto-generated method stub
+	
+	@Transactional
+	public void banAndShowIps(LocalDateTime startDate, String duration, Integer threshhold) {
+		LocalDateTime endDate = getEndDate(startDate, duration);
+		List<String> ips = logFinder.findLogsForTimeframeWithEntriesOverThreshhold(startDate, endDate, threshhold);
+		
+		for (String ip : ips) {
+			BanEntry banEntry = new BanEntry();
+			
+			banEntry.setIp(ip);
+			
+			banEntry.setComment(String.format("Exceeds the maximum allowed %s requests for the period between %s and %s", threshhold, startDate, endDate));
+			gateway.save(banEntry);
+			System.out.println(ip);
+		}
+	}
+	
+	private  LocalDateTime getEndDate(LocalDateTime startDate, String duration) {
+		if (startDate == null) {
+			return null;
+		}
+		LocalDateTime endDate = null;
+		
+		switch (duration) {
+			case "hourly":
+				endDate = startDate.plusHours(1);
+				break;
+			case "daily":
+				endDate = startDate.plusDays(1);
+				break;
+			default:
+				// LOG or throw
+				break;
+		}
 
+		return endDate;
 	}
 
 	private static enum LogFileParts {

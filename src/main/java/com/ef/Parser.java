@@ -1,7 +1,6 @@
 package com.ef;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -29,6 +28,6 @@ public class Parser {
 			logService.saveLogsFromFiles(programParameters.getPathsToAccessLogs());
 		}
 		
-		logService.banAndShowIps(programParameters.getStartDate(), programParameters.getEndDate(), programParameters.getThreshhold());
+		logService.banAndShowIps(programParameters.getStartDate(), programParameters.getDuration(), programParameters.getThreshhold());
 	}
 }

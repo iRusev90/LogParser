@@ -8,20 +8,28 @@
 						http://www.springframework.org/schema/tx/spring-tx.xsd
 						">
 
+	<bean
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="location">
+			<value>database.properties</value>
+		</property>
+	</bean>
+
+
 	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
 		destroy-method="close">
 		<property name="driverClass" value="com.mysql.cj.jdbc.Driver" />
-		<property name="user" value="parser" />
-		<property name="password" value="parser" />
-		<property name="initialPoolSize" value="1" />
-		<property name="minPoolSize" value="1" />
-		<property name="maxPoolSize" value="1" />
+		<property name="user" value="${user}" />
+		<property name="password" value="${password}" />
+		<property name="initialPoolSize" value="${connectionsCount}" />
+		<property name="minPoolSize" value="${connectionsCount}" />
+		<property name="maxPoolSize" value="${connectionsCount}" />
 		<property name="maxStatements" value="50" />
 		<property name="idleConnectionTestPeriod" value="3000" />
 		<property name="loginTimeout" value="300" />
 
 		<property name="jdbcUrl"
-			value="jdbc:mysql://localhost:3306/public?useSSL=false" />
+			value="jdbc:mysql://${host}:${port}/${database}?useSSL=false" />
 	</bean>
 
 	<bean id="sessionFactory"
@@ -36,7 +44,6 @@
 				<prop key="hibernate.show_sql">false</prop>
 				<prop key="hibernate.format_sql">true</prop>
 				<prop key="hibernate.use_sql_comments">true</prop>
-				<prop key="hibernate.hbm2ddl.auto">none</prop>
 			</props>
 		</property>
 
