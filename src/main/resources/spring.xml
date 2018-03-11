@@ -15,4 +15,6 @@
 		
 	<bean id="parser" class="com.ef.Parser" />
 	
+	<bean id="genericGateway" class="com.ef.db.GenericGateway" />
+	
 </beans>
