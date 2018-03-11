@@ -1,0 +1,2 @@
+DROP SCHEMA public IF EXISTS;
+CREATE SCHEMA public;

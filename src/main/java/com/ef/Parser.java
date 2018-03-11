@@ -13,6 +13,9 @@ public class Parser {
 	@Autowired
 	private LogService logService;
 	
+	@Autowired
+	private ProgramParametersParser parametersParser;
+	
 	public static void main(String[] args) throws IOException {
 		ApplicationContext ctx = new ClassPathXmlApplicationContext("classpath:/spring.xml", "classpath:/database.xml");
 		Parser parser = ctx.getBean(Parser.class);
@@ -22,7 +25,7 @@ public class Parser {
 	}
 	
 	private void run(String[] args) throws IOException {		
-		ProgramParameters programParameters = new ProgramParameters(args);
+		ProgramParameters programParameters = parametersParser.parseParameters(args);
 		
 		if (!programParameters.getPathsToAccessLogs().isEmpty()) {
 			logService.saveLogsFromFiles(programParameters.getPathsToAccessLogs());

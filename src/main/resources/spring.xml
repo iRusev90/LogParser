@@ -17,4 +17,6 @@
 	
 	<bean id="genericGateway" class="com.ef.db.GenericGateway" />
 	
+	<bean id="programParametersParser" class="com.ef.ProgramParametersParser" />
+	
 </beans>
