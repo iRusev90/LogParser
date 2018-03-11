@@ -2,6 +2,8 @@ package com.ef;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -11,7 +13,7 @@ public class ProgramParameters {
 	private static final String ARGUMENT_REGEX = "^--(.+?)=(.+?)$";
 	private static final String START_DATE_FORMAT = "yyyy-MM-dd.HH:mm:ss";
 
-	private String pathToAccessLog = null;
+	private List<String> pathsToAccessLogs = new ArrayList<String>();
 	private LocalDateTime startDate = null;
 	private String duration = null;
 	private Integer threshhold = null;
@@ -34,7 +36,7 @@ public class ProgramParameters {
 
 			switch (parameterName) {
 				case "accesslog":
-					this.pathToAccessLog = parameterValue;
+					this.pathsToAccessLogs.add(parameterValue);
 					break;
 				case "startDate":
 					DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(START_DATE_FORMAT);
@@ -54,8 +56,8 @@ public class ProgramParameters {
 		}
 	}
 
-	public String getPathToAccessLog() {
-		return pathToAccessLog;
+	public List<String> getPathsToAccessLogs() {
+		return this.pathsToAccessLogs;
 	}
 
 	public LocalDateTime getStartDate() {
